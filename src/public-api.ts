@@ -1,0 +1,16 @@
+export { Awaitable } from './awaitable';
+export { Document, DocumentWithDefaultId, DEFAULT_ID_KEY } from './document';
+export { Reference } from './reference';
+export { Metadata, ReferenceMetadata } from './metadata';
+export { Stream } from './stream';
+export { Type } from './type';
+export { Where, WhereOperator } from './where';
+export { OrderBy, OrderByDirection } from './order-by';
+export { Query } from './query';
+export { QueryBuilder } from './query-builder';
+export { Adapter } from './adapter';
+export { DefaultAdapter } from './default-adapter';
+export { Collection } from './collection';
+export { Normalizer } from './normalizer';
+export { DefaultNormalizer } from './default-normalizer';
+export { configureFirestore, getAdapter, getCollection } from './global-api';
