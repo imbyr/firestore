@@ -6,11 +6,8 @@ ORM API to process Firestore operations.
 
 If you unable to find feature that you interested in, please [report an issue](https://github.com/imbyr/firestore/issues/new) and we'll discuss it!
 
-<<<<<<< HEAD
 [`@imbyr/firestore` on npmjs.com](https://www.npmjs.com/package/@imbyr/firestore)
 
-=======
->>>>>>> bd1c66b... Initial version source commit
 ## Contents
 
 - [Configuration: `@google-cloud/firestore` or `firebase-admin` package](#configuration)
@@ -45,7 +42,6 @@ If you unable to find feature that you interested in, please [report an issue](h
 
 ## Configuration
 
-<<<<<<< HEAD
 Install `@imbyr/firestore`:
 
 ```typescript
@@ -62,10 +58,6 @@ npm install @google-cloud/firestore --save
 
 Firestore configuration:
 
-=======
-Using `@google-cloud/firestore` package:
-
->>>>>>> bd1c66b... Initial version source commit
  ```typescript
 import { configureFirestore } from '@imbyr/firestore';
 import { Firestore } from '@google-cloud/firestore';
@@ -76,15 +68,12 @@ configureFirestore(firestore);
 
 Using `firebase-admin` package:
 
-<<<<<<< HEAD
 ```
 npm install firebase-admin --save
 ```
 
 Firestore configuration:
 
-=======
->>>>>>> bd1c66b... Initial version source commit
  ```typescript
 import { configureFirestore } from '@imbyr/firestore';
 import * as admin from 'firebase-admin';
@@ -196,11 +185,7 @@ References encapsulates Firestore logic to make relation between documents.
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 import { Document, Reference, getCollection } from '@imbyr/firestore';
 
 @Document('employees')
@@ -248,10 +233,6 @@ class Task {
    * }
    */
 })();
-<<<<<<< HEAD
-=======
-
->>>>>>> bd1c66b... Initial version source commit
 ```
 
 ## Collection
@@ -349,21 +330,13 @@ Collection can be iterated using async `for/of`.
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 for await (const document of collection) {
   console.log(document);
 }
 ```
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 for await (const document of collection.limit(20)) {
   console.log(document);
 }
@@ -472,11 +445,7 @@ Signature: `#select(keys: '*' | string | string[]): this`
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.select('*');
 // or
 builder = builder.select('id');
@@ -493,11 +462,7 @@ Signatures:
 
 **Equal to (`==`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', '1');
 // or
 builder = builder.where('id', WhereOperator.EqualTo, '1');
@@ -507,11 +472,7 @@ builder = builder.whereEqualTo('id', '1');
 
 **Less than (`<`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.LessThan, '1');
 // or
 builder = builder.whereLessThan('id', '1');
@@ -519,11 +480,7 @@ builder = builder.whereLessThan('id', '1');
 
 **Less than or equal to (`<=`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.LessThanOrEqualTo, '1');
 // or
 builder = builder.whereLessThanOrEqualTo('id', '1');
@@ -531,11 +488,7 @@ builder = builder.whereLessThanOrEqualTo('id', '1');
 
 **Greater than (`>`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.GreaterThan, '1');
 // or
 builder = builder.whereGreaterThan('id', '1');
@@ -543,11 +496,7 @@ builder = builder.whereGreaterThan('id', '1');
 
 **Greater than or equal to (`>=`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.GreaterThanOrEqualTo, '1');
 // or
 builder = builder.whereGreaterThanOrEqualTo('id', '1');
@@ -555,11 +504,7 @@ builder = builder.whereGreaterThanOrEqualTo('id', '1');
 
 **Array contains (`array-contains`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.ArrayContains, '1');
 // or
 builder = builder.whereArrayContains('id', '1');
@@ -567,11 +512,7 @@ builder = builder.whereArrayContains('id', '1');
 
 **In (`in`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.In, ['1']);
 // or
 builder = builder.whereIn('id', ['1']);
@@ -579,11 +520,7 @@ builder = builder.whereIn('id', ['1']);
 
 **Array contains any (`array-contains-any`)** example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.where('id', WhereOperator.ArrayContainsAny, ['1']);
 // or
 builder = builder.whereArrayContainsAny('id', ['1']);
@@ -595,11 +532,7 @@ Signatures: `#orderBy(key: string, direction = OrderByDirection.Ascending): this
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.orderBy('id');
 // or
 builder = builder.orderBy('id', OrderByDirection.Ascending);
@@ -613,11 +546,7 @@ Signatures: `#limit(limit: number): this`
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.limit(20);
 ```
 
@@ -627,11 +556,7 @@ Signatures: `#offset(offset: number): this`
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 builder = builder.offset(20);
 ```
 
@@ -641,11 +566,7 @@ Signatures: `#toQuery(): Query`
 
 Example:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 const query = builder.toQuery();
 ```
 
@@ -655,11 +576,7 @@ const query = builder.toQuery();
 
 Signature:
 
-<<<<<<< HEAD
 ```typescript
-=======
-```
->>>>>>> bd1c66b... Initial version source commit
 import { Where, OrderBy } from '@imbyr/firestore';
 
 interface Query {
