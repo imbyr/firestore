@@ -23,4 +23,16 @@ export interface OrderBy {
 export const createOrderBy = (key: string, direction = OrderByDirection.Ascending): OrderBy =>
   ({ key, direction });
 
-export type InlineOrderBy<T extends object = any> = keyof T | string | Partial<Record<keyof T, OrderByDirection>>
+/**
+ * Structure that decomposes to {@link OrderBy[]}.
+ */
+export type OrderByRecord<T extends object = any> = Partial<Record<keyof T, OrderByDirection>>
+
+/**
+ * Factory method to decompose {@link OrderByRecord} into {@link OrderBy[]}.
+ *
+ * @param record
+ */
+export function decomposeOrderByRecord(record: OrderByRecord): OrderBy[] {
+  return Object.entries(record).map(([key, direction]) => ({ key, direction }));
+}

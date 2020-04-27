@@ -1,6 +1,6 @@
 import { Query } from './query';
 import { createWhere, decomposeWhereRecord, Where, WhereOperator, WhereRecord } from './where';
-import { createOrderBy, OrderBy, OrderByDirection } from './order-by';
+import { createOrderBy, decomposeOrderByRecord, OrderBy, OrderByDirection, OrderByRecord } from './order-by';
 
 export class QueryBuilder<T extends object = any> {
   get version() { return this._version };
@@ -160,8 +160,19 @@ export class QueryBuilder<T extends object = any> {
     return this.where(key, WhereOperator.ArrayContainsAny, value.slice());
   }
 
-  orderBy(key: string, direction: OrderByDirection = OrderByDirection.Ascending): this {
-    const order = createOrderBy(key, direction);
+  orderBy(key: string): this
+  orderBy(record: OrderByRecord<T>): this
+  orderBy(key: string, direction: OrderByDirection): this;
+  orderBy(key: string | OrderByRecord<T>, direction?: OrderByDirection): this {
+    if (arguments.length === 1 && key.constructor === Object) {
+      const orderBy = decomposeOrderByRecord(key as OrderByRecord);
+
+      return orderBy.length > 0 ?
+        this.clone(x => x._orderBy.push(...orderBy)) :
+        this;
+    }
+
+    const order = createOrderBy(key as string, direction || OrderByDirection.Ascending);
     return this.clone(x => x._orderBy.push(order));
   }
 
