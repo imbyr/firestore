@@ -4,7 +4,7 @@ import { MetadataSnapshot } from './metadata';
 import { Adapter } from './adapter';
 import { Stream } from './stream';
 import { CollectionMutatedError, DocumentNotFoundError } from './errors';
-import { InlineWhere } from './where';
+import { WhereRecord } from './where';
 
 /**
  * {@link Collection} represents a repository API for particular collection.
@@ -63,7 +63,7 @@ export class Collection<T extends object = any> extends QueryBuilder<T> implemen
    * @throws CollectionMutatedError
    * @throws DocumentNotFoundError
    */
-  find(where: InlineWhere<T>): Promise<T>;
+  find(where: WhereRecord<T>): Promise<T>;
 
   /**
    * Find a first document by its string identifier.
@@ -75,26 +75,19 @@ export class Collection<T extends object = any> extends QueryBuilder<T> implemen
    * @throws CollectionMutatedError
    * @throws DocumentNotFoundError
    */
-  find(where: string | InlineWhere<T>): Promise<T> {
+  find(where: string | WhereRecord<T>): Promise<T> {
     this._validateVersion();
 
     if (typeof where === 'string') {
-      where = { [this.metadata.idKey]: where } as InlineWhere<T>;
+      where = { [this.metadata.idKey]: where } as WhereRecord<T>;
     }
 
-    return Object.entries(where).reduce((query, [key, value]: [string, any | any[]]) => {
-      return Array.isArray(value) ? query.whereIn(key, value) : query.whereEqualTo(key, value);
-    }, this).first();
+    return this.where(where).first();
   }
 
-  async count(where: InlineWhere<T> = {}): Promise<number> {
-    let query = this;
-
-    query = Object.entries(where).reduce((_query, [key, value]: [string, any | any[]]) => {
-      return Array.isArray(value) ? _query.whereIn(key, value) : _query.whereEqualTo(key, value);
-    }, query);
-
-    return this.adapter.count(this.metadata, query.toQuery());
+  async count(where: WhereRecord<T> = {}): Promise<number> {
+    const query = this.where(where).toQuery();
+    return this.adapter.count(this.metadata, query);
   }
 
   // region Write operations

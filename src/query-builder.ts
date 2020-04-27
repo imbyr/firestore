@@ -1,5 +1,5 @@
 import { Query } from './query';
-import { createWhere, Where, WhereOperator } from './where';
+import { createWhere, decomposeWhereRecord, Where, WhereOperator, WhereRecord } from './where';
 import { createOrderBy, OrderBy, OrderByDirection } from './order-by';
 
 export class QueryBuilder<T extends object = any> {
@@ -35,6 +35,12 @@ export class QueryBuilder<T extends object = any> {
    * @param value
    */
   where(key: string, value: any): this;
+
+  /**
+   * Alias for #where(key: string, {@link WhereOperator.EqualTo}, value: any)
+   * @param record
+   */
+  where(record: WhereRecord<T>): this;
 
   /**
    * Push {@link WhereOperator.EqualTo} where expression ('==').
@@ -107,13 +113,18 @@ export class QueryBuilder<T extends object = any> {
    * @param value
    */
   where(key: string, operator: WhereOperator.ArrayContainsAny | 'array-contains-any', value: any[]): this;
-  where(key: string, operator: WhereOperator | any, value?: any): this {
+  where(key: string | WhereRecord, operator?: WhereOperator | any, value?: any): this {
+    if (arguments.length === 1) {
+      const wheres = decomposeWhereRecord(key as WhereRecord);
+      return wheres.length > 0 ? this.clone(x => x._where.push(...wheres)) : this;
+    }
+
     if (arguments.length === 2) {
       value = operator;
       operator = WhereOperator.EqualTo;
     }
 
-    const where = createWhere(key, operator, value);
+    const where = createWhere(key as string, operator, value);
     return this.clone(x => x._where.push(where));
   }
 
