@@ -1,6 +1,6 @@
-# Firestore server ORM
+# Firestore ORM
 
-ORM API to process Firestore operations.
+Server ORM to process Firestore operations.
 
 **Main goal of this library is to provide as simple as possible interface, good code design and batch of features 💛**
 
@@ -32,6 +32,7 @@ If you unable to find feature that you interested in, please [report an issue](h
   - [Version `#version: number`](#version)
   - [Select `#select(keys: '*' | string | string[]): this`](#select)
   - [Where `#where(key: string, value: any): this`](#where)
+  - [Where record `#where(record: WhereRecord): this`](#where-record)
   - [Order by `#orderBy(key: string, direction = 'asc'): this`](#order-by)
   - [Limit `#limit(limit: number): this`](#limit)
   - [Offset `#offset(offset: number): this`](#offset)
@@ -524,6 +525,27 @@ builder = builder.whereIn('id', ['1']);
 builder = builder.where('id', WhereOperator.ArrayContainsAny, ['1']);
 // or
 builder = builder.whereArrayContainsAny('id', ['1']);
+```
+
+### Where record
+
+`WhereRecord` decomposes to `Where[]`. 
+When value is type of `Array` then `WhereOperator.In` will be applied.
+In other cases `WhereOperator.EqualTo` used.
+
+Signatures: 
+
+- `type WhereRecord = Partial<Record<string, any | any[]>>`
+- `#where(record: WhereRecord): this`
+
+Example:
+
+```typescript
+builder = builder.where({ 
+  id: '1', 
+  status: 'active',
+  author: ['author-a', 'author-b'], 
+});
 ```
 
 ### Order by
