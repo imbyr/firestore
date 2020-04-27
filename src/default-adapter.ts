@@ -60,17 +60,17 @@ export class DefaultAdapter implements Adapter {
         if (Array.isArray(value)) {
           // In or any or something like that
           value = value.map(
-            _value => this.collection(referentMetadata).doc(
+            _value => _value ? this.collection(referentMetadata).doc(
               _value instanceof referentMetadata.documentType ?
                 _value[referentMetadata.idKey] : _value
-            )
+            ) : null
           );
         } else {
           // Equals or something like that
-          value = this.collection(referentMetadata).doc(
+          value = value ? this.collection(referentMetadata).doc(
             value instanceof referentMetadata.documentType ?
               value[referentMetadata.idKey] : value
-          );
+          ) : null;
         }
       }
 

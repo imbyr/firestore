@@ -18,8 +18,8 @@ export class DefaultNormalizer implements Normalizer {
       document[key] = value;
     }
 
-    if (!document.id) {
-      document.id = snapshot.id;
+    if (!document[metadata.idKey]) {
+      document[metadata.idKey] = snapshot.id;
     }
 
     for (const [referenceKey, referenceMetadata] of Object.entries(metadata.references)) {
